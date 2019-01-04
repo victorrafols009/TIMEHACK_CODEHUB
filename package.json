@@ -1,0 +1,25 @@
+{
+  "name": "timehack_codehub",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Team CodeHub",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4",
+    "socket.io": "^2.2.0",
+    "winston": "^2.4.4"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/victorrafols009/TIMEHACK_CODEHUB.git"
+  },
+  "bugs": {
+    "url": "https://github.com/victorrafols009/TIMEHACK_CODEHUB/issues"
+  },
+  "homepage": "https://github.com/victorrafols009/TIMEHACK_CODEHUB#readme",
+  "description": ""
+}
