@@ -4,6 +4,8 @@ let io = require('socket.io')(http);
 
 let Logger = require('./services/Logger');
 
+require('dotenv').config();
+
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html');
 });
@@ -14,11 +16,9 @@ http.listen(port, () => {
 });
 
 let connections = 0;
-// let users = 0;
 io.on('connection', (socket) => {
   connections = Object.keys(io.sockets.connected).length;
   io.emit('connections', connections);
-  // io.emit('users', users);
   Logger.log('info', '[Socket] User connected', {connections: connections});
   
   socket.on('disconnect', () => {
@@ -40,14 +40,10 @@ io.on('connection', (socket) => {
   });
 
   socket.on('user-joined', (data) => {
-    // users++;
-    // io.emit('users', users);
     socket.broadcast.emit('user-joined', data);
   });
 
   socket.on('user-left', (data) => {
-    // users--;
-    // io.emit('users', users);
     socket.broadcast.emit('user-left', data);
   });
 
