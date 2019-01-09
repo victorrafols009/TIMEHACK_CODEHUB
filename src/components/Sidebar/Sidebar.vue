@@ -1,5 +1,12 @@
 <template>
-  <v-navigation-drawer permanent class="indigo darken-3" dark>
+<div class="sidebar">
+    <div class="sidebar__header">
+        <i class="fa fa-bars"></i>
+        <p>Direct Messages</p>
+        <span class="fa fa-search"></span>
+    </div>
+</div>
+  <!-- <v-navigation-drawer permanent class="indigo darken-3" dark>
     <v-toolbar flat class="indigo darken-3">
       <v-list>
         <v-list-tile>
@@ -78,32 +85,36 @@
         
     </v-list-tile>
     </v-list>
-  </v-navigation-drawer>
+  </v-navigation-drawer> -->
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        peoples: [
-            {
-                avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
-                name: 'Jerome Patiga',
-                messages: '5'
-            },
-            {
-                avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
-                name: 'Jodie Cristobal',
-                messages: '6'
-            },
-            {
-                avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
-                name: 'Victor Rafols',
-                messages: '3'
-            }
-        ],
-        right: null
-      }
-    }
-  }
+//   export default {
+//     data () {
+//       return {
+//         peoples: [
+//             {
+//                 avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
+//                 name: 'Jerome Patiga',
+//                 messages: '5'
+//             },
+//             {
+//                 avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
+//                 name: 'Jodie Cristobal',
+//                 messages: '6'
+//             },
+//             {
+//                 avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
+//                 name: 'Victor Rafols',
+//                 messages: '3'
+//             }
+//         ],
+//         right: null
+//       }
+//     }
+//   }
 </script>
+<style lang="scss" scoped>
+
+</style>
+
