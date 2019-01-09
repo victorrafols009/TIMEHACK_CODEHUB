@@ -17,8 +17,9 @@ export default {
 }
 </script>
 
-<style scoped>
-#app {
+<style>
+@import "./scss/main.scss";
+#app{
   height: 100vh;
 }
 </style>
