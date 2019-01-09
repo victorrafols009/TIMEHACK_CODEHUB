@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="indigo darken-4">
+  <div id="app">
     <Sidebar/>
     
   </div>
@@ -17,7 +17,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 @import "./scss/main.scss";
 #app{
   height: 100vh;
