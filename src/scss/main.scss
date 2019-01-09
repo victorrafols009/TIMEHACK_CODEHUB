@@ -166,10 +166,22 @@ p{
             background-color: $cyan;
           }
           &.busy{
-            background-color: $red;
+            background-color: $black;
           }
         }
       }
     }
+  }
+}
+.chat{
+  width: 100%;
+  &__header{
+    @extend .flex;
+    align-items: center;
+    font-size: 25px;
+    height: 87px;
+    width: 100%;
+    box-shadow: 0px 3px 6px rgba(black,.15);
+    padding: 0 15px;
   }
 }
