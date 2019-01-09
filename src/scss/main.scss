@@ -20,6 +20,34 @@ html, body{
   color:$black;
   @include transition-reg();
 }
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+::selection {
+  background: rgba($purple,.7); 
+}
+//SCROLL BAR
+::-webkit-scrollbar {
+  width: 8px;
+  height: 3px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: $gray2;
+  border-radius: 10px; 
+  
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $gray;
+  border-radius: 10px; 
+  &:hover{
+    background: ($gray / 1.1); 
+  }
+}
+
 .flex{
   display: flex;
   &__center{
@@ -46,24 +74,102 @@ html, body{
   padding: 0 !important;
 }
 p{
-  color: $black
+  color: $black;
+  margin: 0px;
 }
+//SIDEBAR
 .sidebar{
-  width: 400px;
-  background-color: $gray-bg;
+  width: 20%;
+  background-color: $light-gray;
   height: 100vh;
+  position: relative;
   &__header{
     height: 87px;
     @extend .flex;
     @extend .flex__center;
     @extend .flex__space-between;
+    box-shadow: 0px 10px 15px rgba($cyan,.4);
     padding: 0 15px;
     background-image: linear-gradient(to bottom right, $blue, $cyan);
     i, p{
       @extend .no-margin;
-      font-size: 20;
-      font-weight: bold;
       color: white;
+    }
+    p{
+      font-size: 20px;
+    }
+  }
+  &__tab{
+    @extend .flex;
+    @extend .flex__center;
+    @extend .flex__space-around;
+    border-bottom: 5px solid $gray2;
+    button{
+      @include transition-reg();
+      height: 87px;
+      width: 100%;
+      font-size: 20px;
+      outline: none;
+      i{
+        color: $gray;
+      }
+      &.active{
+        i{
+          color: $blue;
+        }
+      }
+      &:hover{
+        background-color: rgba($gray,.2);
+      }
+    }
+  }
+  &__body{
+    margin-top: 15px;
+    max-height: calc(100% - 194px);
+    position: inherit;
+    @include transition-reg();
+    overflow: hidden;
+    &:hover{
+      overflow: auto;
+    }
+    ul{
+      li{
+        @extend .flex;
+        align-items: center;
+        padding: 0 20px;
+        cursor: pointer;
+        height: 80px;
+        font-size: 20px;
+        &:hover{
+          background-color: $gray2;
+        }
+        &.active{
+          background-image: linear-gradient(to bottom right, $red, $purple);
+          p{
+            color: white;
+          }
+        }
+        img{
+          height: 50px;
+          width: 50px;
+          border-radius: 50%;
+        }
+        p{
+          margin-left: 15px;
+        }
+        .status{
+          height: 10px;
+          width: 10px;
+          border-radius: 50%;
+          margin-left: 15px;
+          &.active{
+            background-color: $cyan;
+          }
+          &.busy{
+            background-color: $red;
+          }
+        }
+      }
     }
   }
 }

@@ -6,8 +6,82 @@
         <i class="fa fa-search"></i>
     </div>
     <div class="sidebar__tab">
-        <button><span class="far fa-comment-alt"></span></button>
-        <button><span class="fa fa-users"></span></button>
+        <button class="active"><i class="far fa-comment-alt"></i></button>
+        <button><i class="fa fa-users"></i></button>
+    </div>
+    <div class="sidebar__body">
+        <ul>
+            <li class="active">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxyCupEcex8TQ972NCU17qPgMAJEsMt8c2ffXQVwytX2j_Gkjs">
+                <p>Kiana Klasna</p>
+                <div class="status active"/>
+            </li>
+            <li class="">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxyCupEcex8TQ972NCU17qPgMAJEsMt8c2ffXQVwytX2j_Gkjs">
+                <p>Kiana Klasna</p>
+                <div class="status busy"/>
+            </li>
+            <li class="">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxyCupEcex8TQ972NCU17qPgMAJEsMt8c2ffXQVwytX2j_Gkjs">
+                <p>Kiana Klasna</p>
+                <div class="status "/>
+            </li>
+            <li class="">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxyCupEcex8TQ972NCU17qPgMAJEsMt8c2ffXQVwytX2j_Gkjs">
+                <p>Kiana Klasna</p>
+                <div class="status "/>
+            </li>
+            <li class="">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxyCupEcex8TQ972NCU17qPgMAJEsMt8c2ffXQVwytX2j_Gkjs">
+                <p>Kiana Klasna</p>
+                <div class="status "/>
+            </li>
+            <li class="">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxyCupEcex8TQ972NCU17qPgMAJEsMt8c2ffXQVwytX2j_Gkjs">
+                <p>Kiana Klasna</p>
+                <div class="status "/>
+            </li>
+            <li class="">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxyCupEcex8TQ972NCU17qPgMAJEsMt8c2ffXQVwytX2j_Gkjs">
+                <p>Kiana Klasna</p>
+                <div class="status "/>
+            </li>
+            <li class="">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxyCupEcex8TQ972NCU17qPgMAJEsMt8c2ffXQVwytX2j_Gkjs">
+                <p>Kiana Klasna</p>
+                <div class="status "/>
+            </li>
+            <li class="">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxyCupEcex8TQ972NCU17qPgMAJEsMt8c2ffXQVwytX2j_Gkjs">
+                <p>Kiana Klasna</p>
+                <div class="status "/>
+            </li>
+            <li class="">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxyCupEcex8TQ972NCU17qPgMAJEsMt8c2ffXQVwytX2j_Gkjs">
+                <p>Kiana Klasna</p>
+                <div class="status "/>
+            </li>
+            <li class="">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxyCupEcex8TQ972NCU17qPgMAJEsMt8c2ffXQVwytX2j_Gkjs">
+                <p>Kiana Klasna</p>
+                <div class="status "/>
+            </li>
+            <li class="">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxyCupEcex8TQ972NCU17qPgMAJEsMt8c2ffXQVwytX2j_Gkjs">
+                <p>Kiana Klasna</p>
+                <div class="status "/>
+            </li>
+            <li class="">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxyCupEcex8TQ972NCU17qPgMAJEsMt8c2ffXQVwytX2j_Gkjs">
+                <p>Kiana Klasna</p>
+                <div class="status "/>
+            </li>
+            <li class="">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxyCupEcex8TQ972NCU17qPgMAJEsMt8c2ffXQVwytX2j_Gkjs">
+                <p>Kiana Klasna</p>
+                <div class="status "/>
+            </li>
+        </ul>
     </div>
 </div>
   
