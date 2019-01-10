@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
+  <div id="app" class="flex">
     <Sidebar/>
-    
+    <Home/>
   </div>
 </template>
 
