@@ -10,6 +10,7 @@
 html, body{
     min-height: 100% !important;
     height: 100%;
+    overflow: hidden;
 }
 * {
   padding: 0; 
@@ -19,6 +20,13 @@ html, body{
   border-collapse: collapse;
   color:$black;
   @include transition-reg();
+}
+img{
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
 }
 ul {
   list-style-type: none;
@@ -84,7 +92,7 @@ p{
   height: 100vh;
   position: relative;
   &__header{
-    height: 87px;
+    height: 8%;
     @extend .flex;
     @extend .flex__center;
     @extend .flex__space-between;
@@ -96,7 +104,7 @@ p{
       color: white;
     }
     p{
-      font-size: 20px;
+      font-size: 15px;
     }
   }
   &__tab{
@@ -108,7 +116,7 @@ p{
       @include transition-reg();
       height: 87px;
       width: 100%;
-      font-size: 20px;
+      font-size: 15px;
       outline: none;
       i{
         color: $gray;
@@ -139,7 +147,7 @@ p{
         padding: 0 20px;
         cursor: pointer;
         height: 80px;
-        font-size: 20px;
+        font-size: 15px;
         &:hover{
           background-color: $gray2;
         }
@@ -173,15 +181,161 @@ p{
     }
   }
 }
+//CHAT UI
 .chat{
   width: 100%;
+  position: relative;
+  ul{
+    margin-top:-35px;
+  }
   &__header{
     @extend .flex;
     align-items: center;
-    font-size: 25px;
-    height: 87px;
+    font-size: 15px;
+    height: 8%;
     width: 100%;
     box-shadow: 0px 3px 6px rgba(black,.15);
     padding: 0 15px;
+  }
+  &__start{
+    height: 200px;
+    background-image: linear-gradient(170deg, rgba($cyan,.3), rgba(red,0), rgba(red,0));
+    @extend .flex;
+    align-items: center;
+    position: relative;
+    p{
+      margin-top: -5%;
+      font-size: 25px;
+      margin-left: 60px; 
+      z-index: 10;
+      user-select: none;
+      -moz-user-select: none;
+      -khtml-user-select: none;
+      -webkit-user-select: none;
+      -o-user-select: none;
+    }
+    .circle-1{
+      height: 100px;
+      width: 100px;
+      border-radius: 50%;
+      background-image: linear-gradient(to top right, $cyan, $blue); 
+      position: absolute;
+      margin-left: 30px;
+    }
+    .circle-2{
+      height: 45px;
+      width: 45px;
+      border-radius: 50%;
+      background-image: linear-gradient(to top right, $red, $purple); 
+      position: absolute;
+      margin-left: 100px;
+      margin-top: -2%;
+    }
+    .circle-3{
+      height: 15px;
+      width: 15px;
+      border-radius: 50%;
+      background-image: linear-gradient(to top right, $blue, $red); 
+      position: absolute;
+      margin-left: 100px;
+      margin-top: -4.5%;
+    }
+  }
+  &__body{
+    max-height: calc(100% - 16%);
+    overflow: auto;
+    &-text{
+      margin-left: 20px;
+      &-info{
+        @extend .flex;
+        &-name{
+            font-size: 12px;
+            font-weight: 500;
+        }
+        &-date{
+          font-size: 12px;
+          font-weight: 500;
+          color: $gray;
+          margin-left: 5px;          
+        }
+      }  
+      &-message{
+        margin-top: 10px;
+        font-size: 12px;
+      }
+    }
+    &-incoming{
+      @extend .flex;
+      border-top: 1px solid $gray2;
+      padding-top: 25px;
+      padding:20px 30px 20px 30px;
+
+      img{
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+      }
+    }
+    &-outgoing{
+      @extend .flex;
+      border-top: 1px solid $gray2;
+      padding-top: 25px;
+      padding:20px 30px 20px 30px;
+
+      img{
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+      }
+    }
+    &-bot{
+      @extend .flex;
+      border-top: 1px solid $gray2;
+      padding-top: 25px;
+      padding:20px 30px 20px 30px;
+
+      img{
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+      }
+    }
+  }
+  &__input{
+    @extend .flex;
+    align-items: center;
+    height: 8%;
+    padding: 0 30px;
+    border-top: 1px solid $gray2;
+    position: absolute;
+    bottom: 0;
+    width:100%;
+    i{
+      position: absolute;
+      left: 0;
+      margin-left: 45px;
+      font-size: 12px;
+      color: $gray;
+    }
+    input{
+      width: 100%;
+      height: 85%;
+      border: solid 1px $gray;
+      padding: 0 10px;
+      border-radius: 10px;
+      font-size: 12px;
+      outline: none;
+      &:hover{
+        transform: scale(1.01);
+      }
+      &:focus{
+        border: solid 1px $gray2;
+        box-shadow: 0px 0px 10px rgba(black,.15);
+      }
+      &::placeholder{
+        font-size: 12px;
+        color: $gray;
+      }
+    }
   }
 }

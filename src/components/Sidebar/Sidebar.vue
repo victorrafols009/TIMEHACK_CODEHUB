@@ -24,8 +24,7 @@
         </li>
         <li class>
           <img
-            src="https://scontent-atl3-1.cdninstagram.com/vp/47869b9d51b50f9b09c93862123269ad/5C92BE13/t51.2885-15/e35/44505509_567583567019091_50459621585362559_n.jpg"
-          >
+            src="https://scontent-atl3-1.cdninstagram.com/vp/47869b9d51b50f9b09c93862123269ad/5C92BE13/t51.2885-15/e35/44505509_567583567019091_50459621585362559_n.jpg">
           <p>Kallen Klasna</p>
           <div class="status busy"/>
         </li>
