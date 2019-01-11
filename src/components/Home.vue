@@ -1,7 +1,8 @@
 <template>
   <div class="Home chat">
     <div class="chat__header">
-      <p>@ Kiana</p>
+      <p>{{roomInfo.name}}</p>
+      <p>({{roomInfo.members}})</p>
       <div class="status active"/>
     </div>
     <div class="chat__body">
@@ -24,13 +25,17 @@
 <script>
 import Chat from './Chats/Chat.vue';
 export default {
-
   name: "Home",
   components: {
-    Chat
+    Chat,
   },
   data() {
     return {
+      roomInfo:
+        {
+          name:'Chilly ~ ',
+          members: 10,
+        },
       messages: [
         {
           avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxyCupEcex8TQ972NCU17qPgMAJEsMt8c2ffXQVwytX2j_Gkjs',

@@ -133,7 +133,7 @@ p{
   }
   &__body{
     margin-top: 15px;
-    max-height: calc(100% - 194px);
+    max-height: calc(100% - 8% - 15px);
     position: inherit;
     @include transition-reg();
     overflow: hidden;
