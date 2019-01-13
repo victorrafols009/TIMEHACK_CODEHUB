@@ -1,50 +1,15 @@
-let app = require('express')();
-let http = require('http').Server(app);
-let io = require('socket.io')(http);
+let express = require('express');
+let app = express();
 
-let Logger = require('./services/Logger');
-
-require('dotenv').config();
-
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/views/index.html');
+server = app.listen(3001, ()=>{
+    console.log('server is running on port 3001')
 });
 
-let port = process.env.PORT || 8080;
-http.listen(port, () => {
-	Logger.log('info', '[App] Now up and running', {port: port});
-});
+let io = require('socket.io')(server);
 
-let connections = 0;
-io.on('connection', (socket) => {
-  connections = Object.keys(io.sockets.connected).length;
-  io.emit('connections', connections);
-  Logger.log('info', '[Socket] User connected', {connections: connections});
-  
-  socket.on('disconnect', () => {
-    connections = Object.keys(io.sockets.connected).length;
-    io.emit('connections', connections);
-    Logger.log('info', '[Socket] User disconnected', {connections: connections});
-  })
-
-  socket.on('new-message', (data) => {
-    socket.broadcast.emit('new-message', data);
+io.on('connection', (socket)=> {
+  console.log(socket.id)
+  socket.on('SEND_MESSAGE', (data)=> {
+    io.emit('MESSAGE', data)
   });
-
-  socket.on('typing', (data) => {
-    socket.broadcast.emit('typing', data);
-  });
-
-  socket.on('typing-stop', (data) => {
-    socket.broadcast.emit('typing-stop', data);
-  });
-
-  socket.on('user-joined', (data) => {
-    socket.broadcast.emit('user-joined', data);
-  });
-
-  socket.on('user-left', (data) => {
-    socket.broadcast.emit('user-left', data);
-  });
-
 });
