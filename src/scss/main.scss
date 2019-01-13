@@ -339,3 +339,51 @@ p{
     }
   }
 }
+@media screen and (min-width: 1367px) {
+  .sidebar{
+    &__header{
+      p{
+        font-size: 18px;
+      }
+    }
+    &__body{
+      ul{
+        li{
+          font-size: 18px;
+          }
+          p{
+            margin-left: 18px;
+          }
+        }
+      }
+    }
+  }
+  //CHAT UI
+  .chat{
+    &__header{
+      font-size: 18px;
+    }
+    &__body{
+      &-text{
+        &-info{
+          &-name{
+              font-size: 15px;
+          }
+          &-date{
+            font-size: 15px;         
+          }
+        }  
+        &-message{
+          font-size: 15px;
+        }
+      }
+    }
+    &__input{
+      input{
+        font-size: 15px;
+        &::placeholder{
+          font-size: 15px;
+        }
+      }
+    }
+  }
