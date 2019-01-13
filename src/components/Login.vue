@@ -22,7 +22,7 @@
                             
                             required
                             ></v-text-field>
-                            <v-btn block round type="submit" :to="{name: 'Home', params: { codename: this.codename }}" dark class="login-continue-btn">Continue</v-btn>
+                            <v-btn block round type="submit" :disabled='!isComplete' :to="{name: 'Home', params: { codename: this.codename }}" dark class="login-continue-btn">Continue</v-btn>
                         </form>
                     </div>
                 </div>
@@ -47,6 +47,12 @@ export default {
         return {
             codename: '',
             gender: ''
+        }
+    },
+
+    computed: {
+        isComplete () {
+            return this.codename && this.gender;
         }
     }
 }

@@ -38,12 +38,19 @@ export default {
     Chat,
     Sidebar
   },
+  beforeCreate(){
+    // let isLogged = this.codename
+    // if(!isLogged == ""){
+    //   this.$router.push('Login') 
+    // }
+  },
   data() {
     return {
       roomInfo: {
         name:'Chilly ~ ',
         members: 10,
       },
+      avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxyCupEcex8TQ972NCU17qPgMAJEsMt8c2ffXQVwytX2j_Gkjs',
       codename: this.$route.params.codename,
       user: '',
       message: '',
@@ -57,6 +64,7 @@ export default {
       e.preventDefault();
       
       this.socket.emit('SEND_MESSAGE', {
+          avatar: this.avatar,
           user: this.codename,
           message: this.message
       });
