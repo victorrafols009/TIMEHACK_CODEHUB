@@ -1,6 +1,6 @@
 # timehack-codehub
 
-> eam CodeHub entry for 2019 EmTech HackathonProject for [CEmerging Technolgy[C
+> Team CodeHub entry for 2019 EmTech Hackathon
 
 ## Build Setup
 
