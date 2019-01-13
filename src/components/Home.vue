@@ -31,6 +31,7 @@
 import Chat from './Chats/Chat.vue';
 import Sidebar from './Sidebar/Sidebar.vue'
 import io from 'socket.io-client';
+import axios from 'axios';
 
 export default {
   name: "Home",
@@ -39,10 +40,10 @@ export default {
     Sidebar
   },
   beforeCreate(){
-    // let isLogged = this.codename
-    // if(!isLogged == ""){
-    //   this.$router.push('Login') 
-    // }
+    
+    if(this.isLogged == false){
+      this.$router.push('Login') 
+    }
   },
   data() {
     return {
@@ -56,19 +57,29 @@ export default {
       message: '',
       messages: [],
       date: '',
-      socket : io('localhost:3001')
+      socket : io('localhost:3001'),
+      isLogged: false,
+      bot: ''
     }
   },
    methods: {
     sendMessage(e) {
       e.preventDefault();
-      
+      this.getUnits()
       this.socket.emit('SEND_MESSAGE', {
           avatar: this.avatar,
           user: this.codename,
           message: this.message
       });
       this.message = ''
+    },
+    getUnits: function() {
+      axios.post('localhost:3001/ask',{input:'pizza'})
+      .then(result => { 
+        console.log(result.data)
+      }).catch((err) => {
+        console.log(err);
+      });
     }
   },
   mounted() {
@@ -76,6 +87,9 @@ export default {
       this.messages = [...this.messages, data];
       // you can also do this.messages.push(data)
     });
+  },
+  beforeMount(){
+    
   }
 };
 </script>
