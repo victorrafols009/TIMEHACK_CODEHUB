@@ -1,25 +1,21 @@
 <template>
-  <div id="app" class="flex">
-    <Sidebar/>
-    <Home/>
+  <div id="app">
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import Home from './components/Home.vue'
-import Sidebar from './components/Sidebar/Sidebar.vue'
+import Login from './components/Login.vue'
 export default {
   name: 'App',
   components: {
     Home,
-    Sidebar
+    Login
   }
 }
 </script>
 
 <style lang="scss">
 @import "./scss/main.scss";
-#app{
-  height: 100vh;
-}
 </style>
