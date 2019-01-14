@@ -28,9 +28,10 @@
 </template>
 
 <script>
+import io from 'socket.io-client';
+import axios from 'axios';
 import Chat from './Chats/Chat.vue';
 import Sidebar from './Sidebar/Sidebar.vue'
-import io from 'socket.io-client';
 
 export default {
   name: "Home",
@@ -46,6 +47,7 @@ export default {
   },
   data() {
     return {
+      socket : io(process.env.API_URL),
       roomInfo: {
         name:'Chilly ~ ',
         members: 10,
@@ -56,23 +58,47 @@ export default {
       message: '',
       messages: [],
       date: '',
-      socket : io('localhost:3001')
     }
   },
    methods: {
     sendMessage(e) {
       e.preventDefault();
-      
-      this.socket.emit('SEND_MESSAGE', {
-          avatar: this.avatar,
-          user: this.codename,
-          message: this.message
-      });
+      let data = {
+        avatar: this.avatar,
+        user: this.codename,
+        message: this.message,
+        room: 'public'
+      };
+      axios.post('/api/v1/messages', data)
+        .then((response)=>{
+          if(response.data.media) {
+            this.messages = [...this.messages, response.data]; // show user's chat to itself only when talking to bot
+
+            let media = response.data.media;
+            let data = {
+              avatar: '', // bot avatar
+              user: 'bot',
+              message: `Now Playing: ${media[0].title} (${media[0].url})`,
+              room: 'public'
+            }
+            this.messages = [...this.messages, data]; // let bot talk
+          }
+        })
+        .catch((errors)=>{
+          console.log(errors);
+          let data = {
+            avatar: '', // bot avatar
+            user: 'bot',
+            message: "I'm sorry, something went wrong from our side. Can you please try again?",
+            room: 'public'
+          }
+          this.messages = [...this.messages, data];
+        });
       this.message = ''
     }
   },
   mounted() {
-    this.socket.on('MESSAGE', (data) => {
+    this.socket.on('message', (data) => {
       this.messages = [...this.messages, data];
       // you can also do this.messages.push(data)
     });
