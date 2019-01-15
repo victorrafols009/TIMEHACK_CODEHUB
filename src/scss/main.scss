@@ -1,11 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i');
 @import './variables';
+@import './spinners';
 
 @mixin shadow {
   box-shadow: 0px 0px 15px rgba($black, .5);
 }
 @mixin transition-reg{
   transition: 100ms ease-out;
+}
+@mixin transition-bounce {
+  transition: 500ms cubic-bezier(0.79, -0.37, 0.21, 1.53);
 }
 html, body{
     min-height: 100% !important;
@@ -22,6 +26,13 @@ html, body{
   @include transition-reg();
 }
 img{
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+}
+.no-highlight{
   user-select: none;
   -moz-user-select: none;
   -khtml-user-select: none;
@@ -85,9 +96,77 @@ p{
   color: $black;
   margin: 0px;
 }
+.text-center{
+  text-align: center;
+}
+.text-keft{
+  text-align: left;
+}
+.text-right{
+  text-align: right;
+}
+.big-text{
+  font-size: 25px;
+}
+.regular-text{
+  font-size: 15px;
+}
+.small-text{
+  font-size: 10px;
+}
+.font{
+  &__gray{
+    color: $gray;
+  }
+  &__light-gray{
+    color: $gray2;
+  }
+  &__blue{
+    color: $blue;
+  }
+  &__cyan{
+    color: $cyan;
+  }
+  &__red{
+    color: $red;
+  }
+  &__purple{
+    color: $purple;
+  }
+  &__black{
+    color: $black;
+  }
+  &__white{
+    color: white;
+  }
+}
+//BUTTONS
+.btn{
+  outline: none;
+  cursor: pointer;
+  height: 35px;
+  border-radius: 6px;
+  padding: 0px 20px;
+  color: $gray;
+  border: 2px solid $gray;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-left: 10px;
+  &:hover{
+    transform: scale(1.1);
+  }
+  &:active{
+    transform: scale(1);
+  }
+  &.blue{
+    background-color: $blue;
+    color: white;
+  }
+}
 //SIDEBAR
 .sidebar{
   width: 20%;
+  min-width: 200px;
   background-color: $light-gray;
   height: 100vh;
   position: relative;
@@ -180,13 +259,29 @@ p{
       }
     }
   }
+  & button{
+    position: relative;
+    .tool-tip{
+      opacity: 0;
+      position: absolute;
+      transform: translatey(-40px);
+      font-size: 12px;
+      padding: 5px 10px;
+      border-radius: 5px;
+      background-color: rgba($black,.9);
+    }
+    &:hover .tool-tip{
+      transition-delay: 200ms;
+      opacity: 1;
+    }
+  }
 }
 //CHAT UI
 .chat{
   width: 100%;
   position: relative;
   ul{
-    margin-top:-35px;
+    transform: translatey(-35px);
   }
   &__header{
     @extend .flex;
@@ -387,3 +482,77 @@ p{
       }
     }
   }
+.intro{
+  @extend .flex;
+  @extend .flex__center;
+  @extend .flex__column;
+  height: 100vh;
+  .jumbotron{
+    font-size: 80px;
+    color: $gray;
+  }
+  .header{
+    font-size:20px;
+    color: $gray;
+  }
+  p{
+    color: $gray;
+  }
+  img{
+    height: 100px;
+  }
+}
+//MODAL
+.modal{
+  @extend .flex;
+  @extend .flex__center;
+  height: 100vh;
+  position: fixed;
+  width: 100%;
+  z-index: 99;
+  transform: translatey(-100%);
+  @include transition-bounce();
+  &__active{
+    display: flex;
+    transform: translatey(0%);
+  }
+  &__bg{
+    background-color: rgba($black,.4);
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+  }
+  &__container{
+    border-radius: 15px;
+    z-index: 100;
+    background-color: white;
+    min-height: 30%;
+    min-width: 20%;
+    position: relative;
+    box-shadow: 0 0 20px rgba($black, .5);
+    &-header{
+      font-size: 25px;
+      padding: 10px 15px;
+      i{
+        display: flex;
+        justify-content: center;
+        font-size: 70px;
+        color: $gray;
+        padding-top: 20px;
+      }
+    }
+    &-body{
+      padding: 20px 15px;
+    }
+    &-footer{
+      position: absolute;
+      bottom: 0;
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+      padding: 10px 15px;
+      background-color: $gray2;
+      border-radius: 0 0 15px 15px;
+    }
+  }
+}
