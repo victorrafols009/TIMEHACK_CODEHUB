@@ -45,11 +45,13 @@
 </template>
 
 <script>
-import Chat from "./Chats/Chat.vue";
-import Sidebar from "./Sidebar/Sidebar.vue";
+
+import io from 'socket.io-client';
+import axios from 'axios';
+import Chat from './Chats/Chat.vue';
+import Sidebar from './Sidebar/Sidebar.vue'
 import Welcome from "./Welcome/Welcome.vue";
 import Modal from "./Modal/Modal.vue";
-import io from "socket.io-client";
 
 export default {
   name: "Home",
@@ -59,8 +61,12 @@ export default {
     Welcome,
     Modal
   },
+  beforeCreate(){
+    
+  },
   data() {
     return {
+      socket : io(process.env.API_URL),
       roomInfo: {
         name: "Chilly ~ ",
         members: 10
@@ -68,33 +74,59 @@ export default {
       modal:{
         isActive: false,
       },
+      avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxyCupEcex8TQ972NCU17qPgMAJEsMt8c2ffXQVwytX2j_Gkjs',
       codename: this.$route.params.codename,
       user: "",
       message: "",
       messages: [],
-      date: "",
-      socket: io("localhost:3001")
-    };
+      date: '',
+    }
   },
   methods: {
     sendMessage(e) {
       e.preventDefault();
-
-      this.socket.emit("SEND_MESSAGE", {
+      let data = {
+        avatar: this.avatar,
         user: this.codename,
-        message: this.message
-      });
-      this.message = "";
-    },
-    showModal() {
-      this.modal.isActive = true;
-    },
-    hideModal() {
-      this.modal.isActive = false;
+        message: this.message,
+        room: 'public'
+      };
+      axios.post(process.env.API_URL + '/ask', data)
+        .then((response)=>{
+          console.log(response)
+        }).catch((err) => {
+          console.log('Categories Error', err);
+        });
+      axios.post('/api/v1/messages', data)
+        .then((response)=>{
+          if(response.data.media) {
+            this.messages = [...this.messages, response.data]; // show user's chat to itself only when talking to bot
+
+            let media = response.data.media;
+            let data = {
+              avatar: '', // bot avatar
+              user: 'bot',
+              message: `Now Playing: ${media[0].title} (${media[0].url})`,
+              room: 'public'
+            }
+            this.messages = [...this.messages, data]; // let bot talk
+          }
+        })
+        .catch((errors)=>{
+          console.log(errors);
+          let data = {
+            avatar: '', // bot avatar
+            user: 'bot',
+            message: "I'm sorry, something went wrong from our side. Can you please try again?",
+            room: 'public'
+          }
+          this.messages = [...this.messages, data];
+        });
+      this.message = ''
     }
   },
   mounted() {
-    this.socket.on("MESSAGE", data => {
+    this.socket.on('message', (data) => {
       this.messages = [...this.messages, data];
       // you can also do this.messages.push(data)
     });
