@@ -69,6 +69,12 @@ export default {
         message: this.message,
         room: 'public'
       };
+      axios.post(process.env.API_URL + '/ask', data)
+        .then((response)=>{
+          console.log(response)
+        }).catch((err) => {
+          console.log('Categories Error', err);
+        });
       axios.post('/api/v1/messages', data)
         .then((response)=>{
           if(response.data.media) {
