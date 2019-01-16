@@ -30,12 +30,12 @@
           <p>It all started here ~</p>
         </div>
         <ul>
-          <chat v-for="(chat, index) in messages" :key="index" :chat="chat"/>
+          <chat id="chats" v-for="(chat, index) in messages" :key="index" :chat="chat"/>
         </ul>
       </div>
       <form @submit.prevent="sendMessage">
         <div class="chat__input">
-          <input type="text" v-model="message" placeholder="say something nice to @kiana">
+          <input type="text" v-model="message" placeholder="say something nice to" autofocus>
         </div>
       </form>
       <!-- Will appear if User haven't selected a room yet -->
@@ -104,10 +104,11 @@ export default {
 
             let media = response.data.media;
             let data = {
-              avatar: '', // bot avatar
+              avatar: require('../assets/chilly-ring.svg'), // bot avatar
               user: 'bot',
               message: `Now Playing: ${media[0].title} (${media[0].url})`,
-              room: 'public'
+              room: 'public',
+              video: `${media[0].video}`
             }
             this.messages = [...this.messages, data]; // let bot talk
           }
@@ -123,7 +124,13 @@ export default {
           this.messages = [...this.messages, data];
         });
       this.message = ''
-    }
+    },
+    showModal() {
+      this.modal.isActive = true;
+    },
+    hideModal() {
+      this.modal.isActive = false;
+    },
   },
   mounted() {
     this.socket.on('message', (data) => {

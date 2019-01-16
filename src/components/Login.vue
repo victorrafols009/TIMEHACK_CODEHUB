@@ -12,6 +12,7 @@
                             v-model="codename"
                             placeholder="What do you want to be called?"
                             label="Screen Name"
+                            autofocus
                             
                             required
                             ></v-text-field>
