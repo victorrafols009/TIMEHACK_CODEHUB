@@ -7,7 +7,6 @@ var express = require('express');
 var bodyParser = require('body-parser');
 
 var app     = express();
-var ask     = require('./modules/common/services/controller').ask;
 
 var express_configuration = require("./express-configuration");
 express_configuration.init(app, express);
@@ -15,7 +14,6 @@ express_configuration.init(app, express);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api/v1/messages', require('./modules/message'));
-app.post('/ask', ask)
 
 var server = require('http').createServer(app);
 var io     = require('socket.io')(server);
