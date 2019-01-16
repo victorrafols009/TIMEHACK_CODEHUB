@@ -94,7 +94,8 @@ MessageController.prototype.evaluateMessage = function(cb, result) {
               let medium = {
                 id: resultMedium.id.videoId,
                 title: resultMedium.snippet.title,
-                url: 'https://www.youtube.com/watch?v=' + resultMedium.id.videoId
+                url: 'https://www.youtube.com/watch?v=' + resultMedium.id.videoId ,
+                video: 'https://www.youtube.com/embed/' + resultMedium.id.videoId + '?autoplay=1&enablejsapi=1&disablekb=1&fs=0&modestbranding=1&iv_load_policy=3',
               };
               media.push(medium);
             });

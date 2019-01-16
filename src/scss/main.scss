@@ -66,7 +66,14 @@ ul {
     background: ($gray / 1.1); 
   }
 }
-
+.hide{
+  opacity: 0;
+}
+.disappear{
+  opacity: 0;
+  position: fixed;
+  transform: translatey(-100%)
+}
 .flex{
   display: flex;
   &__center{

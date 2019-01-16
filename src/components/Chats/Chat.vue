@@ -7,6 +7,7 @@
         <p class="chat__body-text-info-date">{{chat.date}}</p>
       </div>
       <p class="chat__body-text-message">{{chat.message}}</p>
+       <iframe class="disappear" id="ytplayer" type="text/html" :src="chat.video" frameborder="0" allowfullscreen allow="autoplay"/>
     </div>
   </li>
 </template>
