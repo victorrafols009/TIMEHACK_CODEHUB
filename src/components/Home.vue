@@ -62,7 +62,7 @@ export default {
     Modal
   },
   beforeCreate(){
-    
+
   },
   data() {
     return {
@@ -111,6 +111,18 @@ export default {
               video: `${media[0].video}`
             }
             this.messages = [...this.messages, data]; // let bot talk
+          } else if(response.data.watson) {
+            this.messages = [...this.messages, response.data]; // show user's chat to itself only when talking to bot
+
+            let watson = response.data.watson;
+            let data = {
+              avatar: '', // bot avatar
+              user: 'Watson',
+              message: `${watson[0].text}`,
+              room: 'public'
+            }
+
+            this.messages = [...this.messages, data]; // let bot talk
           }
         })
         .catch((errors)=>{
@@ -151,4 +163,3 @@ export default {
   display: none;
 }
 </style>
-
