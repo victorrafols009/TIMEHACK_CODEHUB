@@ -106,10 +106,11 @@ export default {
             let data = {
               avatar: require('../assets/chilly-ring.svg'), // bot avatar
               user: 'Chilly the DJ',
-              message: `Now Playing: ${media[0].title} (${media[0].url})`,
+              message: `Now queued to the playlist: ${media[0].title} (${media[0].url})`,
               room: 'public',
               video: `${media[0].video}`
             }
+
             this.messages = [...this.messages, data]; // let bot talk
           } else if(response.data.watson) {
             this.messages = [...this.messages, response.data]; // show user's chat to itself only when talking to bot
@@ -117,7 +118,7 @@ export default {
             let watson = response.data.watson;
             let data = {
               avatar: '', // bot avatar
-              user: 'Dr.Watson the magic man',
+              user: 'Chillbot',
               message: `${watson[0].text}`,
               room: 'public'
             }
@@ -145,7 +146,7 @@ export default {
     },
     autoScroll(){
       var chatBody = this.$refs.chatBody;
-      chatBody.scrollTop = chatBody.scrollHeight; 
+      chatBody.scrollTop = chatBody.scrollHeight;
     }
   },
   updated(){
