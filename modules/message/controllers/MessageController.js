@@ -9,6 +9,7 @@ function MessageController(req, res) {
   this.req = req;
   this.res = res;
   this.io = req.app.get('io');
+  this.musicQueue = req.app.get('musicQueue');
 };
 
 let context;
@@ -16,6 +17,19 @@ let text = '';
 let assistant;
 let dialog = '';
 let query = '';
+
+/**
+ * 
+ * To queue, do this code:
+ * 
+    this.musicQueue.push({
+      videoId: message,
+      currentTime: 0,
+      progress: 0
+    });
+    this.io.emit('music-queue', this.musicQueue);
+
+ */
 
 MessageController.prototype.evaluateMessage = function(cb, result) {
   let ACTION = '[evaluateMessage]';
@@ -33,6 +47,8 @@ MessageController.prototype.evaluateMessage = function(cb, result) {
   };
 
   let watsonResponse = [];
+
+  let $this = this;
 
   // launch watson chatbot
   if(message.includes('@chillbot') || ((context) && dialog == 'started')) {
@@ -106,9 +122,16 @@ MessageController.prototype.evaluateMessage = function(cb, result) {
               media.push(medium);
             });
             chat.media = media;
+
+            $this.musicQueue.push({
+              videoId: resultMedia[0].id.videoId,
+              currentTime: 0,
+              progress: 0
+            });
+            $this.io.emit('music-queue', $this.musicQueue);
             return cb(null, chat);
           }).catch(error=>{
-            this.io.emit('message', chat);
+            $this.io.emit('message', chat);
             return cb(error);
           });
         } else return cb(null, chat);
