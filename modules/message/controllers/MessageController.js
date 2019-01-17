@@ -15,6 +15,7 @@ let context;
 let text = '';
 let assistant;
 let dialog = '';
+let query = '';
 
 MessageController.prototype.evaluateMessage = function(cb, result) {
   let ACTION = '[evaluateMessage]';
@@ -34,8 +35,8 @@ MessageController.prototype.evaluateMessage = function(cb, result) {
   let watsonResponse = [];
 
   // launch watson chatbot
-  if(message.includes('@watson') || ((context) && dialog == 'started')) {
-    if(message.includes('@watson')) {
+  if(message.includes('@chillbot') || ((context) && dialog == 'started')) {
+    if(message.includes('@chillbot')) {
       //setup the assistant config
       assistant = new watson.AssistantV1({
         version: process.env.W_VER,
@@ -75,15 +76,19 @@ MessageController.prototype.evaluateMessage = function(cb, result) {
         watsonResponse.push(resultWatsonResponse);
         chat.watson = watsonResponse;
 
-        if(context.song != null && context.singer != null) {
-          let song = context.song;
-          let singer = context.singer;
+        if(text.startsWith('play ') || (context.song != null && context.singer != null)) {
+          if(text.startsWith('play ')) {
+            text.replace('play ', '');
+            query = text;
+          } else {
+            let song = context.song;
+            let singer = context.singer;
+            query = song + '+' + singer;
+          }
 
           dialog = '';
           context = null;
           assistant = null;
-
-          let query = song + '+' + singer;
 
           Request.setOptions({
             uri: process.env.YOUTUBE_API_URL + '/search?part=snippet&type=video&maxResults=5&q=' + query + '&key=' + process.env.YOUTUBE_API_KEY,
@@ -97,6 +102,7 @@ MessageController.prototype.evaluateMessage = function(cb, result) {
                 url: 'https://www.youtube.com/watch?v=' + resultMedium.id.videoId ,
                 video: 'https://www.youtube.com/embed/' + resultMedium.id.videoId + '?autoplay=1&enablejsapi=1&disablekb=1&fs=0&modestbranding=1&iv_load_policy=3',
               };
+
               media.push(medium);
             });
             chat.media = media;
