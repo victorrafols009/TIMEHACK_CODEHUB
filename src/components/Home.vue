@@ -10,7 +10,7 @@
         <p><i class="far fa-sad-tear"></i></p>
       </div>
       <div class="text-center" slot="body">
-        <h1>Logout?</h1>
+        <h1>Leave Room?</h1>
         <p class="regular-text font__gray"> Are you sure you want to leave?</p>
         <p class="small-text font__gray">( We'll miss you)</p>
       </div>
@@ -62,7 +62,10 @@ export default {
     Modal
   },
   beforeCreate(){
-
+    let session = sessionStorage.getItem("isLogin");
+    if(!session){
+      this.$router.push('Login') 
+    }
   },
   data() {
     return {
@@ -84,59 +87,55 @@ export default {
   },
   methods: {
     sendMessage(e) {
-      e.preventDefault();
-      let data = {
-        avatar: this.avatar,
-        user: this.codename,
-        message: this.message,
-        room: 'public'
-      };
-      axios.post(process.env.API_URL + '/ask', data)
-        .then((response)=>{
-          console.log(response)
-        }).catch((err) => {
-          console.log('Categories Error', err);
-        });
-      axios.post('/api/v1/messages', data)
-        .then((response)=>{
-          if(response.data.media) {
-            this.messages = [...this.messages, response.data]; // show user's chat to itself only when talking to bot
+      if(!this.message == ''){
+        e.preventDefault();
+        let data = {
+          avatar: this.avatar,
+          user: this.codename,
+          message: this.message,
+          room: 'public'
+        };
+        axios.post('/api/v1/messages', data)
+          .then((response)=>{
+            if(response.data.media) {
+              this.messages = [...this.messages, response.data]; // show user's chat to itself only when talking to bot
 
-            let media = response.data.media;
-            let data = {
-              avatar: require('../assets/chilly-ring.svg'), // bot avatar
-              user: 'Chilly the DJ',
-              message: `Now queued to the playlist: ${media[0].title} (${media[0].url})`,
-              room: 'public',
-              video: `${media[0].video}`
+              let media = response.data.media;
+              let data = {
+                avatar: require('../assets/chilly-ring.svg'), // bot avatar
+                user: 'Chilly the DJ',
+                message: `Now queued to the playlist: ${media[0].title} (${media[0].url})`,
+                room: 'public',
+                video: `${media[0].video}`
+              }
+              this.messages = [...this.messages, data]; // let bot talk
+            } else if(response.data.watson) {
+              this.messages = [...this.messages, response.data]; // show user's chat to itself only when talking to bot
+
+              let watson = response.data.watson;
+              let data = {
+                avatar: '', // bot avatar
+                user: 'Chillbot',
+                message: `${watson[0].text}`,
+                room: 'public'
+              }
+
+              this.messages = [...this.messages, data]; // let bot talk
             }
-
-            this.messages = [...this.messages, data]; // let bot talk
-          } else if(response.data.watson) {
-            this.messages = [...this.messages, response.data]; // show user's chat to itself only when talking to bot
-
-            let watson = response.data.watson;
+          })
+          .catch((errors)=>{
+            console.log(errors);
             let data = {
               avatar: '', // bot avatar
-              user: 'Chillbot',
-              message: `${watson[0].text}`,
+              user: 'bot',
+              message: "I'm sorry, something went wrong from our side. Can you please try again?",
               room: 'public'
             }
+            this.messages = [...this.messages, data];
+          });
+        this.message = ''
+      }
 
-            this.messages = [...this.messages, data]; // let bot talk
-          }
-        })
-        .catch((errors)=>{
-          console.log(errors);
-          let data = {
-            avatar: '', // bot avatar
-            user: 'bot',
-            message: "I'm sorry, something went wrong from our side. Can you please try again?",
-            room: 'public'
-          }
-          this.messages = [...this.messages, data];
-        });
-      this.message = ''
     },
     showModal() {
       this.modal.isActive = true;
@@ -146,7 +145,7 @@ export default {
     },
     autoScroll(){
       var chatBody = this.$refs.chatBody;
-      chatBody.scrollTop = chatBody.scrollHeight;
+      chatBody.scrollTop = chatBody.scrollHeight; 
     }
   },
   updated(){
@@ -169,5 +168,9 @@ export default {
 
 .btn-hidden {
   display: none;
+}
+
+.text-center h1{
+  margin-bottom: 1rem; 
 }
 </style>
