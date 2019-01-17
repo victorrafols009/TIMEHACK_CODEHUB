@@ -29,7 +29,7 @@
           <div class="circle-3"/>
           <p>It all started here ~</p>
         </div>
-        <ul>
+        <ul class="chat__container">
           <chat id="chats" v-for="(chat, index) in messages" :key="index" :chat="chat"/>
         </ul>
       </div>
@@ -105,7 +105,7 @@ export default {
             let media = response.data.media;
             let data = {
               avatar: require('../assets/chilly-ring.svg'), // bot avatar
-              user: 'bot',
+              user: 'Chilly the DJ',
               message: `Now Playing: ${media[0].title} (${media[0].url})`,
               room: 'public',
               video: `${media[0].video}`
@@ -117,7 +117,7 @@ export default {
             let watson = response.data.watson;
             let data = {
               avatar: '', // bot avatar
-              user: 'Watson',
+              user: 'Dr.Watson the magic man',
               message: `${watson[0].text}`,
               room: 'public'
             }
