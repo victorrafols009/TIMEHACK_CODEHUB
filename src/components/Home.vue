@@ -22,14 +22,14 @@
         <p>({{roomInfo.members}})</p>
         <div class="status active"/>
       </div>
-      <div class="chat__body">
+      <div ref="chatBody" class="chat__body">
         <div class="chat__start">
           <div class="circle-1"/>
           <div class="circle-2"/>
           <div class="circle-3"/>
           <p>It all started here ~</p>
         </div>
-        <ul>
+        <ul class="chat__container">
           <chat id="chats" v-for="(chat, index) in messages" :key="index" :chat="chat"/>
         </ul>
       </div>
@@ -105,12 +105,12 @@ export default {
             let media = response.data.media;
             let data = {
               avatar: require('../assets/chilly-ring.svg'), // bot avatar
-              user: 'bot',
+              user: 'Chilly the DJ',
               message: `Now queued to the playlist: ${media[0].title} (${media[0].url})`,
               room: 'public',
               video: `${media[0].video}`
             }
-            
+
             this.messages = [...this.messages, data]; // let bot talk
           } else if(response.data.watson) {
             this.messages = [...this.messages, response.data]; // show user's chat to itself only when talking to bot
@@ -144,13 +144,20 @@ export default {
     hideModal() {
       this.modal.isActive = false;
     },
+    autoScroll(){
+      var chatBody = this.$refs.chatBody;
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+  },
+  updated(){
+    this.autoScroll();
   },
   mounted() {
     this.socket.on('message', (data) => {
       this.messages = [...this.messages, data];
       // you can also do this.messages.push(data)
     });
-  }
+  },
 };
 </script>
 
