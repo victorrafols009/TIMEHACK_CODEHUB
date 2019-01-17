@@ -22,7 +22,7 @@
         <p>({{roomInfo.members}})</p>
         <div class="status active"/>
       </div>
-      <div class="chat__body">
+      <div ref="chatBody" class="chat__body">
         <div class="chat__start">
           <div class="circle-1"/>
           <div class="circle-2"/>
@@ -143,13 +143,20 @@ export default {
     hideModal() {
       this.modal.isActive = false;
     },
+    autoScroll(){
+      var chatBody = this.$refs.chatBody;
+      chatBody.scrollTop = chatBody.scrollHeight; 
+    }
+  },
+  updated(){
+    this.autoScroll();
   },
   mounted() {
     this.socket.on('message', (data) => {
       this.messages = [...this.messages, data];
       // you can also do this.messages.push(data)
     });
-  }
+  },
 };
 </script>
 
