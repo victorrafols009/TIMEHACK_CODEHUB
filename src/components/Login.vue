@@ -30,6 +30,7 @@
                   block
                   round
                   type="submit"
+                  @click="addSession()"
                   :disabled="!isComplete"
                   :to="{name: 'Home', params: { codename: this.codename }}"
                   dark
