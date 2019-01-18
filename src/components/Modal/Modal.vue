@@ -9,7 +9,7 @@
         <slot name="body"/>
       </div>
       <div class="modal__container-footer">
-        <button class="btn blue">
+        <button class="btn blue" @click="destroySession">
           Proceed
         </button>
         <button @click="$emit('hideModal')" class="btn ">
@@ -24,6 +24,12 @@ export default {
   props:
   {
     modal: Object,
+  },
+  methods : {
+    destroySession(){
+      sessionStorage.clear();
+      location.reload();
+    }
   }
 }
 </script>
