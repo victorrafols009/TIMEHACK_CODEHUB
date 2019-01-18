@@ -7,7 +7,7 @@
         <p class="chat__body-text-info-date">{{chat.date}}</p>
       </div>
       <p class="chat__body-text-message">{{chat.message}}</p>
-      <iframe
+      <!-- <iframe
         class="disappear"
         id="ytplayer"
         type="text/html"
@@ -15,7 +15,7 @@
         frameborder="0"
         allowfullscreen
         allow="autoplay"
-      />
+      /> -->
       <!-- List will be avaiable when access by bot -->
       <!-- <ol class="song">
         <p class="song__title">{{chat.header}}</p>

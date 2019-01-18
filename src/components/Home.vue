@@ -1,5 +1,6 @@
 <template>
   <div id="chat-screen" class="flex">
+    <youtube class="disappear" :video-id="videoId" ref="youtube" :player-vars="playerVars" @playing="playing" @ended="ended" @ready="ready"></youtube>
     <!-- Will appear if Loading -->
     <!-- <div class="loading loading__body">
       <span class="spinner atom"></span>
@@ -52,6 +53,7 @@ import Chat from './Chats/Chat.vue';
 import Sidebar from './Sidebar/Sidebar.vue'
 import Welcome from "./Welcome/Welcome.vue";
 import Modal from "./Modal/Modal.vue";
+import { setInterval } from 'timers';
 
 export default {
   name: "Home",
@@ -69,6 +71,13 @@ export default {
   },
   data() {
     return {
+      videoId: null,
+      playerVars: {
+        autoplay: 1
+      },
+      playerProcessId: null,
+      musicQueue: [],
+      startPlay: false,
       socket : io(process.env.API_URL),
       roomInfo: {
         name: "Chilly ~ ",
@@ -137,6 +146,33 @@ export default {
       }
 
     },
+    async playing() {
+      let totalTime = await this.player.getDuration();
+      if(!this.startPlay) {
+        await this.player.seekTo(this.musicQueue[0].currentTime);
+        this.startPlay = true;
+      }
+
+      this.playerProcessId = setInterval(() => {
+        this.player.getCurrentTime().then((time) => {
+          let progress = (time / totalTime) * 100;
+          this.socket.emit('playing', {
+            currentTime: time,
+            progress: progress
+          });
+        });
+      }, 100);
+    },
+    ended() {
+      this.musicQueue.shift();
+      if(this.musicQueue.length > 0) {
+        this.videoId = this.musicQueue[0].videoId;
+        this.socket.emit('play-next');
+      }
+    },
+    ready() {
+      this.videoId = this.musicQueue[0].videoId;
+    },
     showModal() {
       this.modal.isActive = true;
     },
@@ -151,12 +187,38 @@ export default {
   updated(){
     this.autoScroll();
   },
+  watch: {
+    musicQueue: function(newQueue, oldQueue) {
+      if(oldQueue.length == 0) {
+        this.videoId = this.musicQueue[0].videoId;
+      }
+      if(newQueue.length == 0) {
+        this.videoId = null;
+      }
+    }
+  },
   mounted() {
     this.socket.on('message', (data) => {
       this.messages = [...this.messages, data];
-      // you can also do this.messages.push(data)
+      // you can also do this.messages.push(data) 
+    });
+
+    this.socket.on('music-queue', (data) => {
+      this.musicQueue = data;
+    });
+
+    this.socket.on('playing', (data) => {
+      this.musicQueue = data;
     });
   },
+  created() {
+    this.socket.emit('music-queue');
+  },
+  computed: {
+    player() {
+      return this.$refs.youtube.player
+    }
+  }
 };
 </script>
 

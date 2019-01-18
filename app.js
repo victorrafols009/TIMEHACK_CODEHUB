@@ -25,8 +25,39 @@ server.listen(port, function() {
 
 app.set('io', io);
 
+let musicQueue = [
+  // {
+  //   videoId: 'IHNzOHi8sJs',
+  //   currentTime: 0,
+  //   progress: 0
+  // },
+  // {
+  //   videoId: 'mAKsZ26SabQ',
+  //   currentTime: 0,
+  //   progress: 0
+  // },
+  // {
+  //   videoId: 'J_CFBjAyPWE',
+  //   currentTime: 0,
+  //   progress: 0
+  // },
+  // {
+  //   videoId: 'WyiIGEHQP8o',
+  //   currentTime: 0,
+  //   progress: 0
+  // },
+  // {
+  //   videoId: 'Amq-qlqbjYA',
+  //   currentTime: 0,
+  //   progress: 0
+  // }
+];
+
+app.set('musicQueue', musicQueue);
+
 let connections = 0;
 io.on('connection', (socket) => {
+  console.log(musicQueue);
   connections = Object.keys(io.sockets.connected).length;
   Logger.log('info', '[Socket] User connected', {connections: connections});
 
@@ -35,6 +66,25 @@ io.on('connection', (socket) => {
     io.emit('connections', connections);
     Logger.log('info', '[Socket] User disconnected', {connections: connections});
   })
+
+  socket.on('music-queue', () => {
+    io.emit('music-queue', musicQueue);
+  });
+
+  socket.on('playing', (data) => {
+    // update progress of first music on queue
+    if(musicQueue.length != 0) {
+      musicQueue[0].progress = data.progress;
+      musicQueue[0].currentTime = data.currentTime;
+      io.emit('playing', musicQueue);  
+    }
+  });
+
+  socket.on('play-next', () => {
+    musicQueue.shift();
+    console.log(musicQueue);
+    io.emit('play-next', musicQueue);
+  });  
 });
 
 app.use(function (req, res, next) {
