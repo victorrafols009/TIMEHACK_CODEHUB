@@ -19,9 +19,9 @@ let dialog = '';
 let query = '';
 
 /**
- * 
+ *
  * To queue, do this code:
- * 
+ *
     this.musicQueue.push({
       videoId: message,
       currentTime: 0,
@@ -105,6 +105,7 @@ MessageController.prototype.evaluateMessage = function(cb, result) {
           dialog = '';
           context = null;
           assistant = null;
+          text = '';
 
           Request.setOptions({
             uri: process.env.YOUTUBE_API_URL + '/search?part=snippet&type=video&maxResults=5&q=' + query + '&key=' + process.env.YOUTUBE_API_KEY,
@@ -134,6 +135,13 @@ MessageController.prototype.evaluateMessage = function(cb, result) {
             $this.io.emit('message', chat);
             return cb(error);
           });
+        } else if(text == 'cancel') {
+            dialog = '';
+            context = null;
+            assistant = null;
+            text = '';
+
+            return cb(null, chat);
         } else return cb(null, chat);
       }
     });
