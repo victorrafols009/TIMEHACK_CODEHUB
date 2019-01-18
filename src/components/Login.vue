@@ -49,16 +49,22 @@
 
 <script>
 export default {
-  data() {
-    return {
-      codename: "",
-      gender: ""
-    };
-  },
-
-  computed: {
-    isComplete() {
-      return this.codename && this.gender;
+    
+    data() {
+        return {
+            codename: '',
+            gender: ''
+        }
+    },
+    methods : {
+        addSession(){
+            sessionStorage.setItem("isLogin", true);
+        }
+    },
+    computed: {
+        isComplete () {
+            return this.codename && this.gender;
+        }
     }
   }
 };

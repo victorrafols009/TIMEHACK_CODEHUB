@@ -30,7 +30,7 @@ export default {
     return {
       rooms: [
         {
-          name: "Chilly ~ ",
+          name: "Public Room",
           avatar:
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxyCupEcex8TQ972NCU17qPgMAJEsMt8c2ffXQVwytX2j_Gkjs",
           members: 10,
