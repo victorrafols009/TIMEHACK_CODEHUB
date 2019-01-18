@@ -32,20 +32,3 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
-//CUSTOM LIST
-@import "../../scss/_variables.scss";
-.song {
-  min-width: 500px;
-  background-color: $gray2;
-  border-left: $red solid 5px;
-  margin: 10px 5px;
-  &__title {
-    padding: 10px;
-    font-weight: bold;
-  }
-  &__list {
-    padding: 10px;
-  }
-}
-</style>
