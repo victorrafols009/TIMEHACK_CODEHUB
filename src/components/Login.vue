@@ -49,22 +49,20 @@
 
 <script>
 export default {
-    
-    data() {
-        return {
-            codename: '',
-            gender: ''
-        }
-    },
-    methods : {
-        addSession(){
-            sessionStorage.setItem("isLogin", true);
-        }
-    },
-    computed: {
-        isComplete () {
-            return this.codename && this.gender;
-        }
+  data() {
+    return {
+      codename: "",
+      gender: ""
+    };
+  },
+  methods: {
+    addSession() {
+      sessionStorage.setItem("isLogin", true);
+    }
+  },
+  computed: {
+    isComplete() {
+      return this.codename && this.gender;
     }
   }
 };
@@ -92,22 +90,22 @@ $blue: #7079f1;
   width: 100%;
 }
 .logo {
-    &__name{
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-    }
-    width: 100%;
+  &__name {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+  width: 100%;
   img {
     height: 200px;
   }
   h1 {
-      font-size: 80px;
-      margin-left: 10px;
+    font-size: 80px;
+    margin-left: 10px;
   }
 }
-.login-card{
-    width: 70%;
+.login-card {
+  width: 70%;
 }
 .v-card__text {
   min-width: 30%;
