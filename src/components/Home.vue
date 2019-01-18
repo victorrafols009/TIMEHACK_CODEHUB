@@ -66,7 +66,7 @@ export default {
   beforeCreate(){
     let session = sessionStorage.getItem("isLogin");
     if(!session){
-      this.$router.push('Login') 
+      this.$router.push('Login')
     }
   },
   data() {
@@ -123,7 +123,7 @@ export default {
 
               let watson = response.data.watson;
               let data = {
-                avatar: '', // bot avatar
+                avatar: require('../assets/chilly-ring.svg'), // bot avatar
                 user: 'Chillbot',
                 message: `${watson[0].text}`,
                 room: 'public'
@@ -181,7 +181,7 @@ export default {
     },
     autoScroll(){
       var chatBody = this.$refs.chatBody;
-      chatBody.scrollTop = chatBody.scrollHeight; 
+      chatBody.scrollTop = chatBody.scrollHeight;
     }
   },
   updated(){
@@ -200,7 +200,7 @@ export default {
   mounted() {
     this.socket.on('message', (data) => {
       this.messages = [...this.messages, data];
-      // you can also do this.messages.push(data) 
+      // you can also do this.messages.push(data)
     });
 
     this.socket.on('music-queue', (data) => {
@@ -233,6 +233,6 @@ export default {
 }
 
 .text-center h1{
-  margin-bottom: 1rem; 
+  margin-bottom: 1rem;
 }
 </style>
