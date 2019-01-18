@@ -81,8 +81,8 @@ export default {
   },
   beforeCreate() {
     let session = sessionStorage.getItem("isLogin");
-    if (!session) {
-      this.$router.push("Login");
+    if(!session){
+      this.$router.push('Login')
     }
   },
   data() {
@@ -143,8 +143,8 @@ export default {
 
               let watson = response.data.watson;
               let data = {
-                avatar: "", // bot avatar
-                user: "Chillbot",
+                avatar: require('../assets/chilly-ring.svg'), // bot avatar
+                user: 'Chillbot',
                 message: `${watson[0].text}`,
                 room: "public"
               };
@@ -253,7 +253,8 @@ export default {
   display: none;
 }
 
-.text-center h1 {
+
+.text-center h1{
   margin-bottom: 1rem;
 }
 .song {
@@ -268,5 +269,6 @@ export default {
   &__list {
     padding: 10px;
   }
+
 }
 </style>
